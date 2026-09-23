@@ -12,9 +12,13 @@ and options, and exposes them over REST.
 
 ```bash
 cd wp-content/themes
-git clone https://github.com/Relmaur/taw-gutenberg.git
-cd taw-gutenberg && composer install --no-dev
+TAW_STARTER=gutenberg composer create-project taw/create my-theme \
+  --repository='{"type":"vcs","url":"https://github.com/Relmaur/taw-create"}'
 ```
+
+That's the TAW installer ([taw-create](https://github.com/Relmaur/taw-create)). Without `TAW_STARTER`
+it asks which TAW theme you want. To install this package directly:
+`composer create-project taw/gutenberg my-theme --repository='{"type":"vcs","url":"https://github.com/Relmaur/taw-gutenberg"}'`.
 
 Activate **TAW Gutenberg** in Appearance → Themes. If `composer install` hasn't run, the theme still
 renders, and shows administrators a notice.
