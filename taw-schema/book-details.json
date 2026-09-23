@@ -1,0 +1,18 @@
+{
+  "$schema": "../vendor/taw/core/resources/schema/taw-schema-1.0.json",
+  "version": 1,
+  "kind": "fieldset",
+  "key": "book_details",
+  "title": "Book details",
+  "on": ["book"],
+  "fields": [
+    { "id": "book_subtitle", "type": "text", "label": "Subtitle" },
+    { "id": "book_author", "type": "text", "label": "Author", "required": true },
+    { "id": "book_year", "type": "number", "label": "Year published", "min": 1450 },
+    { "id": "book_cover", "type": "image", "label": "Cover" },
+    { "id": "book_awards", "type": "repeater", "label": "Awards", "fields": [
+      { "id": "name", "type": "text", "label": "Award" },
+      { "id": "year", "type": "number", "label": "Year" }
+    ] }
+  ]
+}

@@ -1,0 +1,26 @@
+#!/usr/bin/env php
+<?php
+/**
+ * TAW CLI for this theme. Only the commands a data-only TAW theme needs —
+ * the classic-theme commands (make:block, …) live in taw-theme's bin/taw.
+ *
+ *   php bin/taw schema:validate     # check taw-schema/*.json, no WordPress needed
+ */
+
+declare(strict_types=1);
+
+$themeDir = dirname(__DIR__);
+$autoload = $themeDir . '/vendor/autoload.php';
+
+if (!file_exists($autoload)) {
+    fwrite(STDERR, "Run 'composer install' first.\n");
+    exit(1);
+}
+
+require $autoload;
+
+\TAW\Helpers\Framework::setThemeRoot($themeDir);
+
+$app = new \Symfony\Component\Console\Application('TAW Gutenberg CLI', '0.1.0');
+$app->add(new \TAW\CLI\SchemaValidateCommand($themeDir));
+$app->run();
