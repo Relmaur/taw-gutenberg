@@ -3,7 +3,15 @@
   "version": 1,
   "kind": "taxonomy",
   "key": "genre",
-  "for": ["book"],
-  "labels": { "singular": "Genre", "plural": "Genres" },
-  "args": { "hierarchical": true, "show_admin_column": true }
+  "for": [
+    "book"
+  ],
+  "labels": {
+    "singular": "Genre",
+    "plural": "Genres"
+  },
+  "args": {
+    "hierarchical": true,
+    "show_admin_column": true
+  }
 }

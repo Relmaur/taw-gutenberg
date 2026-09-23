@@ -3,6 +3,15 @@
   "version": 1,
   "kind": "post_type",
   "key": "book",
-  "labels": { "singular": "Book", "plural": "Books" },
-  "args": { "menu_icon": "dashicons-book", "has_archive": true, "rewrite": { "slug": "books" } }
+  "labels": {
+    "singular": "Book",
+    "plural": "Books"
+  },
+  "args": {
+    "menu_icon": "dashicons-book",
+    "has_archive": true,
+    "rewrite": {
+      "slug": "books"
+    }
+  }
 }
