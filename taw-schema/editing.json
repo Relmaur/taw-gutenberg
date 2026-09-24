@@ -1,0 +1,7 @@
+{
+  "$schema": "../vendor/taw/core/resources/schema/taw-schema-1.0.json",
+  "version": 1,
+  "kind": "editing",
+  "key": "site",
+  "preset": "open"
+}

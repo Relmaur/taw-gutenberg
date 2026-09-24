@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": ">=8.2",
-        "taw/core": "^1.44"
+        "taw/core": "^1.47"
     },
     "require-dev": {
         "phpunit/phpunit": "^11",
