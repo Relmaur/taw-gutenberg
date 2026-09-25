@@ -59,4 +59,16 @@ final class EditingTest extends TestCase
         $this->assertFalse($policy->content('page')['lock']);
         $this->assertNull($policy->content('page')['allow']);
     }
+
+    public function test_the_theme_blocks_stay_available_to_locked_clients(): void
+    {
+        // themeBlocks (taw/core v1.50.0) adds taw-gutenberg/* to the curated
+        // allow list, so a client on a locked level can still insert them.
+        $definition = JsonLoader::toDefinition(JsonLoader::readFile(\dirname(__DIR__, 2) . '/taw-schema/editing.json')['data']);
+
+        $this->assertSame(['taw-gutenberg/*'], Resolver::resolve($definition)->themeBlocks);
+        foreach (['guided', 'structured', 'locked'] as $level) {
+            $this->assertContains('taw-gutenberg/*', Resolver::resolve($definition, [], $level)->content('page')['allow'], $level);
+        }
+    }
 }

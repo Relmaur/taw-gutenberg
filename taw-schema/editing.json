@@ -3,5 +3,6 @@
   "version": 1,
   "kind": "editing",
   "key": "site",
-  "preset": "open"
+  "preset": "open",
+  "themeBlocks": ["taw-gutenberg/*"]
 }

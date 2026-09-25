@@ -1,6 +1,6 @@
 {
     "name": "taw-gutenberg",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "description": "Build tooling and JS tests for the TAW Gutenberg block theme.",
     "private": true,
     "license": "GPL-2.0-or-later",

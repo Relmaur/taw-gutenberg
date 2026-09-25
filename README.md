@@ -56,7 +56,7 @@ define('TAW_EDITING_BYPASS_USERS', ['marco']);  // your logins: they stay unlock
 | Level | What a client can do |
 |---|---|
 | `open` | Everything (the default) |
-| `guided` | Compose pages from a curated set of core blocks. Brand colors and font sizes only. No code editor, Custom HTML or Global Styles |
+| `guided` | Compose pages from a curated set of core blocks plus this theme's own (`taw-gutenberg/*`, via `themeBlocks` in `taw-schema/editing.json`). Brand colors and font sizes only. No code editor, Custom HTML or Global Styles |
 | `structured` | Pages are `contentOnly`: edit text and media inside the layout, not the layout itself. Templates and template parts are locked, and design tokens are presets only |
 | `locked` | Pages are fully locked (`templateLock: all`). The Site Editor and Navigation are locked too |
 

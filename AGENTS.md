@@ -29,7 +29,7 @@ AGENTS.md and ADR-0002). Read the umbrella's `docs/STATE.md` for where work left
 | `vite.config.js` | Block entries auto-discovered; `GLOBAL_ENTRIES` for site-wide ones; dev server on 5174 |
 | `tests/js/` | Vitest setup and the fake `window.wp` stubs |
 | `taw-schema/*.json` | Post types, taxonomies, fieldsets, options pages (taw/core ADR-0004) |
-| `taw-schema/editing.json` | The editor lockdown policy. Ships `"preset": "open"`; installs pick a level in wp-config.php |
+| `taw-schema/editing.json` | The editor lockdown policy. Ships `"preset": "open"` and `"themeBlocks": ["taw-gutenberg/*"]` (this theme's blocks stay in every allow list); installs pick a level in wp-config.php |
 | `bin/taw` | `schema:validate` (no WordPress) |
 | `docs/adr/` | This theme's decisions |
 
