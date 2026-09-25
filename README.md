@@ -41,6 +41,29 @@ php bin/taw schema:validate   # checks every file; no WordPress needed
   bare id.
 - The format reference is the taw/core README, § "Schema".
 
+## Fields in a sidebar (data panel)
+
+By default, fieldsets show as metaboxes under the editor canvas. taw/core (v1.51.0+) can show them in
+a **TAW Data** sidebar instead: one place for a post's data, with every field type. This theme leaves
+it off. Switch it on at whichever level you need; the first one set wins:
+
+```jsonc
+// One fieldset: add to its file, e.g. taw-schema/book-details.json
+"ui": "panel"
+
+// Every fieldset that doesn't choose: a new file, taw-schema/settings.json
+{ "version": 1, "kind": "settings", "key": "site", "fieldsetUi": "panel" }
+```
+
+```php
+// One install: wp-config.php (replaces the settings file's value, not a fieldset's own "ui")
+define('TAW_DATA_UI', 'panel');
+```
+
+A fieldset shows in the sidebar **or** as a metabox, never both. Values are stored the same way
+either way, so switching back and forth is safe. Full guide: taw-docs "Data panel", and the taw/core
+README § "Data panel".
+
 ## Locking the editor down for a client
 
 taw/core's editing policies decide how much of the editor a client can use, in four layers: page
