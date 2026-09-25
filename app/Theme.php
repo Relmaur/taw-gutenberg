@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace TAW\Gutenberg;
 
 use TAW\Gutenberg\Contracts\Bootable;
+use TAW\Gutenberg\Setup\Assets;
+use TAW\Gutenberg\Setup\Blocks;
 use TAW\Gutenberg\Setup\Editing;
 use TAW\Gutenberg\Setup\TawData;
 
@@ -22,6 +24,8 @@ final class Theme
         return [
             new TawData(),
             new Editing(),
+            new Blocks(),
+            new Assets(),
         ];
     }
 

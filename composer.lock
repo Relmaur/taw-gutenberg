@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "15dec0f8a7b9c26d432fc61ccbb99743",
+    "content-hash": "2823d383c8808afed5ce11d2083a01db",
     "packages": [
         {
             "name": "enshrined/svg-sanitize",
@@ -853,16 +853,16 @@
         },
         {
             "name": "taw/core",
-            "version": "v1.49.0",
+            "version": "v1.49.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Relmaur/taw-core.git",
-                "reference": "50edf7d07c3225c6b5fc46c2d2617a91f35080c2"
+                "reference": "4fcf1b3e8f71dd928a832dfa7145fc740a552655"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Relmaur/taw-core/zipball/50edf7d07c3225c6b5fc46c2d2617a91f35080c2",
-                "reference": "50edf7d07c3225c6b5fc46c2d2617a91f35080c2",
+                "url": "https://api.github.com/repos/Relmaur/taw-core/zipball/4fcf1b3e8f71dd928a832dfa7145fc740a552655",
+                "reference": "4fcf1b3e8f71dd928a832dfa7145fc740a552655",
                 "shasum": ""
             },
             "require": {
@@ -917,10 +917,10 @@
             ],
             "description": "TAW — data layer framework for WordPress (fields, options, REST-exposed meta, content interchange), plus an optional classic-theme toolkit (block system, Vite asset pipeline)",
             "support": {
-                "source": "https://github.com/Relmaur/taw-core/tree/v1.49.0",
+                "source": "https://github.com/Relmaur/taw-core/tree/v1.49.1",
                 "issues": "https://github.com/Relmaur/taw-core/issues"
             },
-            "time": "2026-09-25T16:13:21+00:00"
+            "time": "2026-09-25T16:26:23+00:00"
         }
     ],
     "packages-dev": [

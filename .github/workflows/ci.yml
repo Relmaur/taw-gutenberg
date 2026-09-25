@@ -25,3 +25,22 @@ jobs:
         run: composer run test
       - name: Validate taw-schema/*.json (no WordPress)
         run: php bin/taw schema:validate
+
+  js:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer:v2
+          coverage: none
+      # vite.config.js imports taw/core's shared Vite plugins from vendor/.
+      - run: composer install --no-interaction --no-progress --no-dev
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Lint, format, typecheck, Vitest, production build
+        run: npm run check

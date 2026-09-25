@@ -9,7 +9,9 @@ AGENTS.md and ADR-0002). Read the umbrella's `docs/STATE.md` for where work left
 - WordPress 6.6+ (developed against 7.1), theme.json v3, full site editing (no PHP templates).
 - PHP 8.2+. `taw/core` (Composer, pinned by tag in `composer.lock`), booted with
   `\TAW\Core\Boot::data()` only. Never call `Theme::boot()` here: that's taw-theme's classic toolkit.
-- No JS build yet (YAGNI). Add one only with a real custom-block need, and record it in an ADR.
+- **Vite 8 + TypeScript** build `src/` into `dist/` (not committed; ADR-0003). PHP loads it through
+  taw/core's `\TAW\Core\Assets\Vite` (taw-core ADR-0006); `vite.config.js` imports taw/core's shared
+  plugins from `vendor/`, so `composer install` comes first. Node 22.12+.
 
 ## Layout
 
@@ -21,6 +23,11 @@ AGENTS.md and ADR-0002). Read the umbrella's `docs/STATE.md` for where work left
 | `app/Contracts/Bootable.php` | Service contract: `register()` only adds hooks |
 | `app/Setup/TawData.php` | Boots taw/core's data layer at `after_setup_theme:0` |
 | `app/Setup/Editing.php` | Boots taw/core's editing policies (`Boot::editing()`) at `after_setup_theme:0` (ADR-0002) |
+| `app/Setup/Blocks.php` | Registers every `src/blocks/*/block.json` at `init` through `Assets\Vite::block()` |
+| `app/Setup/Assets.php` | Site-wide front-end/editor entries (none shipped: list them in `FRONTEND`/`EDITOR` and in vite.config.js) |
+| `src/blocks/<name>/` | One block: `block.json` (`file:./index.tsx`, `file:./style.scss`), TSX, SCSS, `*.test.ts(x)` |
+| `vite.config.js` | Block entries auto-discovered; `GLOBAL_ENTRIES` for site-wide ones; dev server on 5174 |
+| `tests/js/` | Vitest setup and the fake `window.wp` stubs |
 | `taw-schema/*.json` | Post types, taxonomies, fieldsets, options pages (taw/core ADR-0004) |
 | `taw-schema/editing.json` | The editor lockdown policy. Ships `"preset": "open"`; installs pick a level in wp-config.php |
 | `bin/taw` | `schema:validate` (no WordPress) |
@@ -32,6 +39,9 @@ AGENTS.md and ADR-0002). Read the umbrella's `docs/STATE.md` for where work left
 composer run test          # unit tests, no WordPress
 composer run phpstan       # level max, must stay green
 php bin/taw schema:validate
+npm run dev                # Vite dev server (writes dist/hot; WordPress loads from it)
+npm run build              # production build into dist/
+npm run check              # lint + format + typecheck + Vitest + build (what CI runs)
 ```
 
 ## Rules
@@ -42,6 +52,15 @@ php bin/taw schema:validate
 - **Editor lockdown is taw/core's, not this theme's** (ADR-0002). Don't add lockdown code here. Change
   `taw-schema/editing.json` or a post type's `"editing"` rule. The shipped preset must stay `open`
   (`EditingTest` checks this); clients get their level from `TAW_EDITING_PRESET` in wp-config.php.
+- **Blocks** live in `src/blocks/<name>/`, are named `taw-gutenberg/<name>` (the editing-policy
+  allow pattern) and use the **classic JSX runtime** (`import React from 'react'` in every JSX file).
+  `block.json` is the single source of truth: `index.tsx` registers `metadata`. Assets are
+  `file:` references; `Blocks` maps them to Vite. No `*.asset.php`: when a block imports a
+  `@wordpress/*` package outside taw/core's `Vite::EDITOR_SCRIPT_DEPS`, add its handle (e.g.
+  `wp-rich-text`) to `Blocks::EXTRA_EDITOR_DEPS`.
+- `@wordpress/*` and `react` imports resolve to browser globals (taw/core `wordpressExternals()`).
+  A name missing from its `WP_EXPORT_NAMES` fails the build: add it there (taw/core) or via
+  `wordpressExternals({ extraExports })`. Tests stub the globals in `tests/js/wp-globals.tsx`.
 - After every taw/core tag: `composer update taw/core`, then commit `composer.lock` (the umbrella's
   taw-bump/taw-ship flows).
 - Umbrella rules apply: confirm every state-changing git operation (scope and actor), bump the

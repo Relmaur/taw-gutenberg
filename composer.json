@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": ">=8.2",
-        "taw/core": "^1.47"
+        "taw/core": "^1.49.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^11",
@@ -42,6 +42,10 @@
         "sort-packages": true
     },
     "scripts": {
+        "post-create-project-cmd": [
+            "npm install --no-audit --no-fund",
+            "npm run build"
+        ],
         "test": "phpunit",
         "phpstan": "phpstan analyse --memory-limit=-1",
         "schema:validate": "php bin/taw schema:validate"

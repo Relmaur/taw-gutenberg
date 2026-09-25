@@ -1,0 +1,13 @@
+# Generated
+dist/
+coverage/
+vendor/
+node_modules/
+package-lock.json
+composer.lock
+
+# Hand-formatted
+*.md
+*.html
+theme.json
+taw-schema/

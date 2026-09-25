@@ -1,0 +1,30 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "taw-gutenberg/callout",
+    "title": "Callout",
+    "category": "text",
+    "icon": "info-outline",
+    "description": "A highlighted note: information, success or a warning.",
+    "keywords": ["notice", "note", "alert"],
+    "textdomain": "taw-gutenberg",
+    "attributes": {
+        "tone": {
+            "type": "string",
+            "enum": ["info", "success", "warning"],
+            "default": "info"
+        },
+        "content": {
+            "type": "rich-text",
+            "source": "rich-text",
+            "selector": "p"
+        }
+    },
+    "supports": {
+        "html": false,
+        "anchor": true,
+        "spacing": { "margin": true }
+    },
+    "editorScript": "file:./index.tsx",
+    "style": "file:./style.scss"
+}

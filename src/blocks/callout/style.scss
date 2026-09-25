@@ -1,0 +1,21 @@
+// Front end and editor. Info follows the theme's accent colour.
+.wp-block-taw-gutenberg-callout {
+    --callout-color: var(--wp--preset--color--accent, #2f5bea);
+
+    border-inline-start: 4px solid var(--callout-color);
+    background: color-mix(in srgb, var(--callout-color) 8%, transparent);
+    padding: 1rem 1.25rem;
+    border-radius: 0.25rem;
+
+    &.is-tone-success {
+        --callout-color: #1a7f37;
+    }
+
+    &.is-tone-warning {
+        --callout-color: #b35900;
+    }
+
+    p {
+        margin: 0;
+    }
+}

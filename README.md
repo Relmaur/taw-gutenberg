@@ -20,8 +20,10 @@ That's the TAW installer ([taw-create](https://github.com/Relmaur/taw-create)). 
 it asks which TAW theme you want. To install this package directly:
 `composer create-project taw/gutenberg my-theme --repository='{"type":"vcs","url":"https://github.com/Relmaur/taw-gutenberg"}'`.
 
-Activate **TAW Gutenberg** in Appearance → Themes. If `composer install` hasn't run, the theme still
-renders, and shows administrators a notice.
+The install runs `npm install` and `npm run build` for you (Node 22.12+).
+
+Activate **TAW Gutenberg** in Appearance → Themes. If `composer install` or the build hasn't run, the
+theme still renders, and shows administrators a notice saying what to run.
 
 ## Defining data
 
@@ -63,15 +65,45 @@ define('TAW_EDITING_BYPASS_USERS', ['marco']);  // your logins: they stay unlock
   (or a child theme's copy). The format is in the taw/core README, § "Editing policies".
 - **If you lock yourself out:** `define('TAW_EDITING_OFF', true);` turns it all off.
 
+## Blocks and assets (Vite)
+
+Custom blocks live in `src/blocks/<name>/` and are built with **Vite + TypeScript**. The theme ships
+one example, **Callout** (`taw-gutenberg/callout`): a note with an info, success or warning tone.
+
+```text
+src/blocks/callout/
+  block.json      name, attributes, and "editorScript": "file:./index.tsx", "style": "file:./style.scss"
+  index.tsx       registers block.json's metadata with edit + save
+  edit.tsx, save.tsx, tones.ts, style.scss, *.test.ts(x)
+```
+
+To add a block, copy that folder. `vite.config.js` finds every block's `index.tsx`, `view.ts`,
+`style.scss` and `editor.scss`, and `Setup\Blocks` registers every `block.json` through taw/core's
+`Assets\Vite::block()`. Name blocks `taw-gutenberg/<name>`: that's the pattern editing policies
+allow.
+
+- **`npm run dev`** starts the Vite dev server. WordPress finds it through `dist/hot` and loads
+  blocks from it. Editing a template, part or PHP file reloads the page.
+- **`npm run build`** writes hashed files and a manifest to `dist/` (not committed; deploys build).
+- Without a build or a dev server, blocks still register, and administrators see which assets
+  are missing.
+- `@wordpress/*` and `react` imports use the copies WordPress already loads, so bundles stay small.
+  JSX uses the classic runtime: `import React from 'react'` in each JSX file.
+- Site-wide scripts/styles: list them in `Setup\Assets::FRONTEND`/`EDITOR` and in `GLOBAL_ENTRIES`
+  in `vite.config.js` (none ship, so pages load nothing extra).
+
 ## Development
 
 ```bash
-composer install
+composer install        # first: vite.config.js imports taw/core's Vite plugins from vendor/
+npm install
 composer run test       # PHPUnit + Brain Monkey (no WordPress)
 composer run phpstan    # level max
 php bin/taw schema:validate
+npm run check           # ESLint, Prettier, tsc, Vitest, production build
 ```
 
 Architecture: `functions.php` → `TAW\Gutenberg\Theme` (service registry) → `Setup\TawData`, which
-calls `\TAW\Core\Boot::data()` (taw/core's data layer), and `Setup\Editing`, which calls
-`\TAW\Core\Boot::editing()` (editing policies). See `docs/adr/`.
+calls `\TAW\Core\Boot::data()` (taw/core's data layer), `Setup\Editing`, which calls
+`\TAW\Core\Boot::editing()` (editing policies), and `Setup\Blocks`/`Setup\Assets` (Vite, through
+taw/core's `Assets\Vite`). See `docs/adr/`.

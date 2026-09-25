@@ -8,4 +8,9 @@ if (!defined('ABSPATH')) {
     define('ABSPATH', '/tmp/');
 }
 
+// WordPress time constants taw/core reads (e.g. Assets\Vite's manifest cache TTL).
+if (!defined('DAY_IN_SECONDS')) {
+    define('DAY_IN_SECONDS', 86400);
+}
+
 require __DIR__ . '/../vendor/autoload.php';
