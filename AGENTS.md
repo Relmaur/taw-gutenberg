@@ -17,7 +17,7 @@ AGENTS.md and ADR-0002). Read the umbrella's `docs/STATE.md` for where work left
 
 | Path | Purpose |
 |---|---|
-| `theme.json`, `templates/`, `parts/` | All presentation, plain Gutenberg markup |
+| `theme.json`, `templates/`, `parts/` | All presentation, plain Gutenberg markup. `templates/single-book.html` is the Block Bindings reference: core blocks bound to `book_details` fields through `taw/field` |
 | `functions.php` | Loads Composer (fails soft with an admin notice), registers the services |
 | `app/Theme.php` | Service registry: add a service by listing it in `services()` |
 | `app/Contracts/Bootable.php` | Service contract: `register()` only adds hooks |

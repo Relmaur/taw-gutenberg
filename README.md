@@ -64,6 +64,28 @@ A fieldset shows in the sidebar **or** as a metabox, never both. Values are stor
 either way, so switching back and forth is safe. Full guide: taw-docs "Data panel", and the taw/core
 README § "Data panel".
 
+## Showing fields with core blocks (Block Bindings)
+
+taw/core (v1.60.0+) registers a `taw/field` Block Bindings source, so core blocks can show TAW fields
+without a custom block per field. **`templates/single-book.html` is the reference:** the cover, subtitle,
+author and year come from the `book_details` fieldset.
+
+```html
+<!-- wp:paragraph {"metadata":{"bindings":{"content":{"source":"taw/field","args":{"field":"book_subtitle"}}}}} -->
+<p></p>
+<!-- /wp:paragraph -->
+```
+
+- **In the editor:** select a paragraph, heading, list item, button, image or post date and use the
+  **TAW field** toolbar button (or ⋮ → **Connect to TAW field…**). One pick binds every attribute the
+  field fills, e.g. an image field gives core/image its ID, URL and alt. Bound blocks preview the real
+  value and are read-only; edit the value in the metabox.
+- **`args`:** `field`, plus `from` (`post`, `option`, `term`, `user`), `sub` for a group's sub-field and
+  `size` for images. In a Query Loop each item shows its own post's fields.
+- **Empty fields** keep the block's saved content (empty in the template above), so a book without a
+  subtitle just renders an empty paragraph.
+- Full guide: taw-docs "Block Bindings", and the taw/core README § "Block Bindings".
+
 ## Locking the editor down for a client
 
 taw/core's editing policies decide how much of the editor a client can use, in four layers: page
@@ -86,6 +108,15 @@ define('TAW_EDITING_BYPASS_USERS', ['marco']);  // your logins: they stay unlock
 - **Tools → TAW Editing** shows what's in effect and whether you're exempt.
 - **Finer control:** override single settings or per-post-type rules in `taw-schema/editing.json`
   (or a child theme's copy). The format is in the taw/core README, § "Editing policies".
+- **Field-only blocks (`allowBound`, taw/core v1.62.0+):** a content rule can let clients add some
+  blocks only connected to a TAW field. They appear in the inserter as **Field text**, **Field image**…
+  and can't be saved unbound. Add it to a post type's rule in `taw-schema/editing.json`, e.g.:
+
+  ```json
+  "layers": { "content": { "book": { "allow": ["core/heading", "core/buttons"], "allowBound": ["core/paragraph", "core/button", "core/image"] } } }
+  ```
+
+  It only matters where blocks can be inserted (`lock` left `false`); the shipped file doesn't set it.
 - **If you lock yourself out:** `define('TAW_EDITING_OFF', true);` turns it all off.
 
 ## Blocks and assets (Vite)
