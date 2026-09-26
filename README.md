@@ -86,6 +86,18 @@ author and year come from the `book_details` fieldset.
   subtitle just renders an empty paragraph.
 - Full guide: taw-docs "Block Bindings", and the taw/core README § "Block Bindings".
 
+### Values inside text (dynamic tags, taw/core v1.63.0+)
+
+The toolbar's **TAW data** button also puts values *inside* a sentence: set **Insert as** to **Inline**, then
+pick a field, or write an expression on the **Expression** tab:
+
+```text
+Added on @post.date.format('F j, Y') · First published @book_year.default('—')
+```
+
+`single-book.html` has that line as a chip (a `span.taw-tag` with the expression in `data-taw-tag`). The
+front end always shows live values. Syntax and functions: taw-docs "Dynamic tags & expressions".
+
 ## Locking the editor down for a client
 
 taw/core's editing policies decide how much of the editor a client can use, in four layers: page
