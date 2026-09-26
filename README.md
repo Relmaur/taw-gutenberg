@@ -82,8 +82,8 @@ author and year come from the `book_details` fieldset.
   value and are read-only; edit the value in the metabox.
 - **`args`:** `field`, plus `from` (`post`, `option`, `term`, `user`), `sub` for a group's sub-field and
   `size` for images. In a Query Loop each item shows its own post's fields.
-- **Empty fields** keep the block's saved content (empty in the template above), so a book without a
-  subtitle just renders an empty paragraph.
+- **Empty fields** keep the block's saved content (empty in the template above). The template hides the
+  subtitle paragraph when there's no subtitle (a condition, below).
 - Full guide: taw-docs "Block Bindings", and the taw/core README § "Block Bindings".
 
 ### Values inside text (dynamic tags, taw/core v1.63.0+)
@@ -95,8 +95,22 @@ pick a field, or write an expression on the **Expression** tab:
 Added on @post.date.format('F j, Y') · First published @book_year.default('—')
 ```
 
-`single-book.html` has that line as a chip (a `span.taw-tag` with the expression in `data-taw-tag`). The
+`single-book.html` has that line as chips (a `span.taw-tag` with the expression in `data-taw-tag`). The
 front end always shows live values. Syntax and functions: taw-docs "Dynamic tags & expressions".
+
+### Showing things only when a value is set (conditions, taw/core v1.67.0+)
+
+A chip, a block's bound text or a whole block can show only when rules hold: **TAW data → Visibility**
+(or **TAW visibility** in any block's sidebar), and **Show only when…** on the Expression tab or a chip.
+`single-book.html` uses three:
+
+- "· First published @book_year" only when the year is set (the chip's `"if"`);
+- the subtitle paragraph only when there's a subtitle (`"metadata": {"tawShowIf": …}`);
+- a **Buy this book** button, bound to the `book_buy_link` link field (URL, label, new tab), only when the
+  link is set.
+
+Hidden blocks are left out of the page, not secured: they're still in the template. Full guide: taw-docs
+"Conditions".
 
 ## Locking the editor down for a client
 

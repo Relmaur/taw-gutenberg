@@ -11,7 +11,7 @@
 <!-- wp:column {"width":"66.66%"} -->
 <div class="wp-block-column" style="flex-basis:66.66%"><!-- wp:post-title {"level":1} /-->
 
-<!-- wp:paragraph {"fontSize":"large","metadata":{"bindings":{"content":{"source":"taw/field","args":{"field":"book_subtitle"}}}}} -->
+<!-- wp:paragraph {"fontSize":"large","metadata":{"bindings":{"content":{"source":"taw/field","args":{"field":"book_subtitle"}}},"tawShowIf":{"match":"all","rules":[{"value":"@book_subtitle","op":"not_empty"}]}}} -->
 <p class="has-large-font-size"></p>
 <!-- /wp:paragraph -->
 
@@ -20,8 +20,14 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"fontSize":"small"} -->
-<p class="has-small-font-size"><span class="taw-tag" data-taw-tag="{&quot;expr&quot;:&quot;Added on @post.date.format('F j, Y') · First published @book_year.default('—')&quot;}">Added on — · First published —</span></p>
+<p class="has-small-font-size"><span class="taw-tag" data-taw-tag="{&quot;expr&quot;:&quot;Added on @post.date.format('F j, Y')&quot;}">Added on —</span> <span class="taw-tag" data-taw-tag="{&quot;expr&quot;:&quot;· First published @book_year&quot;,&quot;if&quot;:{&quot;match&quot;:&quot;all&quot;,&quot;rules&quot;:[{&quot;value&quot;:&quot;@book_year&quot;,&quot;op&quot;:&quot;not_empty&quot;}]}}">· First published —</span></p>
 <!-- /wp:paragraph -->
+
+<!-- wp:buttons {"metadata":{"tawShowIf":{"match":"all","rules":[{"value":"@book_buy_link","op":"not_empty"}]}}} -->
+<div class="wp-block-buttons"><!-- wp:button {"metadata":{"bindings":{"url":{"source":"taw/field","args":{"field":"book_buy_link"}},"text":{"source":"taw/field","args":{"field":"book_buy_link"}},"linkTarget":{"source":"taw/field","args":{"field":"book_buy_link"}},"rel":{"source":"taw/field","args":{"field":"book_buy_link"}}}}} -->
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button">Buy this book</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons -->
 
 <!-- wp:post-content {"layout":{"type":"constrained"}} /--></div>
 <!-- /wp:column --></div>

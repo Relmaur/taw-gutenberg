@@ -31,6 +31,11 @@
       "label": "Cover"
     },
     {
+      "id": "book_buy_link",
+      "type": "link",
+      "label": "Buy link"
+    },
+    {
       "id": "book_awards",
       "type": "repeater",
       "label": "Awards",
