@@ -23,6 +23,16 @@
 <p class="has-small-font-size"><span class="taw-tag" data-taw-tag="{&quot;expr&quot;:&quot;Added on @post.date.format('F j, Y')&quot;}">Added on —</span> <span class="taw-tag" data-taw-tag="{&quot;expr&quot;:&quot;· First published @book_year&quot;,&quot;if&quot;:{&quot;match&quot;:&quot;all&quot;,&quot;rules&quot;:[{&quot;value&quot;:&quot;@book_year&quot;,&quot;op&quot;:&quot;not_empty&quot;}]}}">· First published —</span></p>
 <!-- /wp:paragraph -->
 
+<!-- wp:taw/loop {"loopId":2,"source":{"type":"terms","taxonomy":"genre","scope":"post"},"layout":{"type":"grid","columns":4,"gap":"0.5rem"}} -->
+<!-- wp:taw/loop-item -->
+<!-- wp:buttons -->
+<div class="wp-block-buttons"><!-- wp:button {"className":"is-style-outline","metadata":{"bindings":{"text":{"source":"taw/field","args":{"row":"name"}},"url":{"source":"taw/field","args":{"row":"url"}}}}} -->
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button">Genre</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons -->
+<!-- /wp:taw/loop-item -->
+<!-- /wp:taw/loop -->
+
 <!-- wp:buttons {"metadata":{"tawShowIf":{"match":"all","rules":[{"value":"@book_buy_link","op":"not_empty"}]}}} -->
 <div class="wp-block-buttons"><!-- wp:button {"metadata":{"bindings":{"url":{"source":"taw/field","args":{"field":"book_buy_link"}},"text":{"source":"taw/field","args":{"field":"book_buy_link"}},"linkTarget":{"source":"taw/field","args":{"field":"book_buy_link"}},"rel":{"source":"taw/field","args":{"field":"book_buy_link"}}}}} -->
 <div class="wp-block-button"><a class="wp-block-button__link wp-element-button">Buy this book</a></div>
@@ -31,7 +41,43 @@
 
 <!-- wp:post-content {"layout":{"type":"constrained"}} /--></div>
 <!-- /wp:column --></div>
-<!-- /wp:columns --></main>
+<!-- /wp:columns -->
+
+<!-- wp:taw/loop {"loopId":1,"source":{"type":"repeater","from":"post","field":"book_awards"},"order":{"by":"@row.year","dir":"desc","as":"number"}} -->
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Awards</h2>
+<!-- /wp:heading -->
+
+<!-- wp:taw/loop-item -->
+<!-- wp:paragraph -->
+<p><span class="taw-tag" data-taw-tag="{&quot;expr&quot;:&quot;@row.name&quot;}">Award</span> <span class="taw-tag" data-taw-tag="{&quot;expr&quot;:&quot;(@row.year)&quot;,&quot;if&quot;:{&quot;match&quot;:&quot;all&quot;,&quot;rules&quot;:[{&quot;value&quot;:&quot;@row.year&quot;,&quot;op&quot;:&quot;not_empty&quot;}]}}">(Year)</span></p>
+<!-- /wp:paragraph -->
+<!-- /wp:taw/loop-item -->
+
+<!-- wp:taw/loop-empty -->
+<!-- wp:paragraph {"fontSize":"small"} -->
+<p class="has-small-font-size">No awards yet.</p>
+<!-- /wp:paragraph -->
+<!-- /wp:taw/loop-empty -->
+<!-- /wp:taw/loop -->
+
+<!-- wp:taw/loop {"loopId":3,"source":{"type":"query","postType":"book","terms":{"genre":"current"},"excludeCurrent":true},"limit":3,"layout":{"type":"grid","columns":3}} -->
+<!-- wp:heading -->
+<h2 class="wp-block-heading">More books like this</h2>
+<!-- /wp:heading -->
+
+<!-- wp:taw/loop-item -->
+<!-- wp:image {"sizeSlug":"medium","metadata":{"bindings":{"id":{"source":"taw/field","args":{"field":"book_cover"}},"url":{"source":"taw/field","args":{"field":"book_cover","size":"medium"}},"alt":{"source":"taw/field","args":{"field":"book_cover"}}}}} -->
+<figure class="wp-block-image size-medium"><img alt=""/></figure>
+<!-- /wp:image -->
+
+<!-- wp:post-title {"level":3,"isLink":true} /-->
+
+<!-- wp:paragraph {"fontSize":"small","metadata":{"bindings":{"content":{"source":"taw/field","args":{"field":"book_author"}}}}} -->
+<p class="has-small-font-size"></p>
+<!-- /wp:paragraph -->
+<!-- /wp:taw/loop-item -->
+<!-- /wp:taw/loop --></main>
 <!-- /wp:group -->
 
 <!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

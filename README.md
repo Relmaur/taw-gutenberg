@@ -112,6 +112,20 @@ A chip, a block's bound text or a whole block can show only when rules hold: **T
 Hidden blocks are left out of the page, not secured: they're still in the template. Full guide: taw-docs
 "Conditions".
 
+### Repeating a design for each item (TAW Loop, taw/core v1.69.0+)
+
+Insert **TAW Loop**, choose what to loop over (repeater rows, related posts, posts, terms or images) and
+design the first item; every item follows it, with `@row.*` and `@loop.*` values. `single-book.html` has
+three loops:
+
+- **Genres:** the book's `genre` terms as outline buttons bound to `@row.name` and `@row.url`;
+- **Awards:** the `book_awards` repeater, newest first, "(year)" only when set, and **No awards yet.** when
+  there are none (a `taw/loop-empty` block);
+- **More books like this:** a query for books in the same genre, leaving this one out, at most 3 in a grid.
+  Its heading sits inside the loop, so the section disappears when there are no other books.
+
+Full guide: taw-docs "TAW Loop".
+
 ## Locking the editor down for a client
 
 taw/core's editing policies decide how much of the editor a client can use, in four layers: page
