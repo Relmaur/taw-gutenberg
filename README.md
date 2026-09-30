@@ -126,6 +126,17 @@ three loops:
 
 Full guide: taw-docs "TAW Loop".
 
+### Formulas and functions (taw/core v1.70.0+)
+
+Expressions can calculate and choose (`@( … )`, `@if(…)`, about 40 functions). `single-book.html` uses:
+
+- "· First published @book_year, @ago(@book_year)" → "First published 1994, 32 years ago";
+- the awards heading: `@if(@count(@book_awards) > 0, @plural(@count(@book_awards), 'award', 'awards'), 'Awards')`;
+- a **More by** button, shown when there's an author: text `More by @book_author`, link
+  `/?s=@urlencode(@book_author)&post_type=book` (a link by expression).
+
+Full guide: taw-docs "Dynamic tags and expressions" and "Expression functions".
+
 ## Locking the editor down for a client
 
 taw/core's editing policies decide how much of the editor a client can use, in four layers: page

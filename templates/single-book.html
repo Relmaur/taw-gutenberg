@@ -20,7 +20,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"fontSize":"small"} -->
-<p class="has-small-font-size"><span class="taw-tag" data-taw-tag="{&quot;expr&quot;:&quot;Added on @post.date.format('F j, Y')&quot;}">Added on —</span> <span class="taw-tag" data-taw-tag="{&quot;expr&quot;:&quot;· First published @book_year&quot;,&quot;if&quot;:{&quot;match&quot;:&quot;all&quot;,&quot;rules&quot;:[{&quot;value&quot;:&quot;@book_year&quot;,&quot;op&quot;:&quot;not_empty&quot;}]}}">· First published —</span></p>
+<p class="has-small-font-size"><span class="taw-tag" data-taw-tag="{&quot;expr&quot;:&quot;Added on @post.date.format('F j, Y')&quot;}">Added on —</span> <span class="taw-tag" data-taw-tag="{&quot;expr&quot;:&quot;· First published @book_year, @ago(@book_year)&quot;,&quot;if&quot;:{&quot;match&quot;:&quot;all&quot;,&quot;rules&quot;:[{&quot;value&quot;:&quot;@book_year&quot;,&quot;op&quot;:&quot;not_empty&quot;}]}}">· First published —</span></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:taw/loop {"loopId":2,"source":{"type":"terms","taxonomy":"genre","scope":"post"},"layout":{"type":"grid","columns":4,"gap":"0.5rem"}} -->
@@ -33,6 +33,12 @@
 <!-- /wp:taw/loop-item -->
 <!-- /wp:taw/loop -->
 
+<!-- wp:buttons {"metadata":{"tawShowIf":{"match":"all","rules":[{"value":"@book_author","op":"not_empty"}]}}} -->
+<div class="wp-block-buttons"><!-- wp:button {"className":"is-style-outline","metadata":{"bindings":{"text":{"source":"taw/field","args":{"expr":"More by @book_author"}},"url":{"source":"taw/field","args":{"expr":"/?s=@urlencode(@book_author)\u0026post_type=book"}}}}} -->
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button">More by this author</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons -->
+
 <!-- wp:buttons {"metadata":{"tawShowIf":{"match":"all","rules":[{"value":"@book_buy_link","op":"not_empty"}]}}} -->
 <div class="wp-block-buttons"><!-- wp:button {"metadata":{"bindings":{"url":{"source":"taw/field","args":{"field":"book_buy_link"}},"text":{"source":"taw/field","args":{"field":"book_buy_link"}},"linkTarget":{"source":"taw/field","args":{"field":"book_buy_link"}},"rel":{"source":"taw/field","args":{"field":"book_buy_link"}}}}} -->
 <div class="wp-block-button"><a class="wp-block-button__link wp-element-button">Buy this book</a></div>
@@ -44,7 +50,7 @@
 <!-- /wp:columns -->
 
 <!-- wp:taw/loop {"loopId":1,"source":{"type":"repeater","from":"post","field":"book_awards"},"order":{"by":"@row.year","dir":"desc","as":"number"}} -->
-<!-- wp:heading -->
+<!-- wp:heading {"metadata":{"bindings":{"content":{"source":"taw/field","args":{"expr":"@if(@count(@book_awards) \u003e 0, @plural(@count(@book_awards), 'award', 'awards'), 'Awards')"}}}}} -->
 <h2 class="wp-block-heading">Awards</h2>
 <!-- /wp:heading -->
 
