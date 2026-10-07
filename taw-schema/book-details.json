@@ -31,6 +31,12 @@
       "label": "Cover"
     },
     {
+      "id": "book_cover_credit",
+      "type": "text",
+      "label": "Cover credit",
+      "description": "Who made the cover art; shown under the cover."
+    },
+    {
       "id": "book_buy_link",
       "type": "link",
       "label": "Buy link"

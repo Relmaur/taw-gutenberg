@@ -17,7 +17,7 @@ AGENTS.md and ADR-0002). Read the umbrella's `docs/STATE.md` for where work left
 
 | Path | Purpose |
 |---|---|
-| `theme.json`, `templates/`, `parts/` | All presentation, plain Gutenberg markup. `templates/single-book.html` is the Block Bindings reference: core blocks bound to `book_details` fields through `taw/field`, expression chips, conditions (`tawShowIf`, a chip's `if`), TAW Loops (genres, awards, more books like this) and formulas/functions (`@ago()`, `@plural(@count(…))`, a link by expression) |
+| `theme.json`, `templates/`, `parts/` | All presentation, plain Gutenberg markup. `templates/single-book.html` is the Block Bindings reference: core blocks bound to `book_details` fields through `taw/field`, expression chips, conditions (`tawShowIf`, a chip's `if`), TAW Loops (genres, awards, more books like this) and formulas/functions (`@ago()`, `@plural(@count(…))`, a link by expression) and dynamic block settings (`tawSettings`: genre-colored badges from `genre_color` in `taw-schema/genre-details.json`, an in-print class, an `#awards` anchor; cover caption from `book_cover_credit`, Buy rel by expression) |
 | `functions.php` | Loads Composer (fails soft with an admin notice), registers the services |
 | `app/Theme.php` | Service registry: add a service by listing it in `services()` |
 | `app/Contracts/Bootable.php` | Service contract: `register()` only adds hooks |

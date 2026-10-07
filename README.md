@@ -137,6 +137,25 @@ Expressions can calculate and choose (`@( … )`, `@if(…)`, about 40 functions
 
 Full guide: taw-docs "Dynamic tags and expressions" and "Expression functions".
 
+### Dynamic block settings (taw/core v1.74.0+)
+
+A block's classes, colors and HTML attributes can come from values too (its sidebar's **TAW dynamic
+settings**). `single-book.html` uses them:
+
+- **genre badges** in each genre's color: the genre loop's button takes `color: @row.genre_color` (the
+  **Color** field in `taw-schema/genre-details.json`, on each genre), a `genre-@row.slug` class and a
+  `data-genre` attribute. A genre without a color keeps the outline style;
+- **the details column** gets `is-in-print` or `is-out-of-print`:
+  `@if(@book_buy_link != '', 'is-in-print', 'is-out-of-print')`;
+- **the awards heading** gets the anchor `#awards`.
+
+The popup's **Use it for** fills more parts by expression too:
+- the cover's **Caption** is "Cover: …" from the **Cover credit** field (`book_cover_credit`);
+- the Buy button's **Link rel** is `sponsored noopener`. Its new tab still follows the link field's own
+  setting.
+
+Full guide: taw-docs "Dynamic block settings".
+
 ## Locking the editor down for a client
 
 taw/core's editing policies decide how much of the editor a client can use, in four layers: page

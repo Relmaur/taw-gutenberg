@@ -1,0 +1,18 @@
+{
+  "$schema": "../vendor/taw/core/resources/schema/taw-schema-1.0.json",
+  "version": 1,
+  "kind": "fieldset",
+  "key": "genre_details",
+  "title": "Genre details",
+  "on": [
+    "term:genre"
+  ],
+  "fields": [
+    {
+      "id": "genre_color",
+      "type": "color",
+      "label": "Color",
+      "description": "The genre's badge color on book pages."
+    }
+  ]
+}
