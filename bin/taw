@@ -1,8 +1,9 @@
 #!/usr/bin/env php
 <?php
 /**
- * TAW CLI for this theme. Only the commands a data-only TAW theme needs —
- * the classic-theme commands (make:block, …) live in taw-theme's bin/taw.
+ * TAW CLI for this theme. The commands live in taw/core (TAW\CLI\Application,
+ * which gives a block theme the ones that work without the classic scaffold)
+ * and update with `composer update taw/core`; `vendor/bin/taw` is the same tool.
  *
  *   php bin/taw schema:validate     # check taw-schema/*.json, no WordPress needed
  *   php bin/taw skills:sync         # taw/core's site skills into .claude/skills/ (--apply writes)
@@ -20,11 +21,14 @@ if (!file_exists($autoload)) {
 
 require $autoload;
 
-\TAW\Helpers\Framework::setThemeRoot($themeDir);
+if (class_exists(\TAW\CLI\Application::class)) { // taw/core 1.90+
+    exit(\TAW\CLI\Application::main($themeDir));
+}
 
+\TAW\Helpers\Framework::setThemeRoot($themeDir);
 $app = new \Symfony\Component\Console\Application('TAW Gutenberg CLI', '0.1.0');
 $app->add(new \TAW\CLI\SchemaValidateCommand($themeDir));
-if (class_exists(\TAW\CLI\SkillsSyncCommand::class)) { // taw/core 1.89+
+if (class_exists(\TAW\CLI\SkillsSyncCommand::class)) {
     $app->add(new \TAW\CLI\SkillsSyncCommand($themeDir));
 }
 $app->run();
