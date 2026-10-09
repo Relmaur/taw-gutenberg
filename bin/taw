@@ -5,6 +5,7 @@
  * the classic-theme commands (make:block, …) live in taw-theme's bin/taw.
  *
  *   php bin/taw schema:validate     # check taw-schema/*.json, no WordPress needed
+ *   php bin/taw skills:sync         # taw/core's site skills into .claude/skills/ (--apply writes)
  */
 
 declare(strict_types=1);
@@ -23,4 +24,7 @@ require $autoload;
 
 $app = new \Symfony\Component\Console\Application('TAW Gutenberg CLI', '0.1.0');
 $app->add(new \TAW\CLI\SchemaValidateCommand($themeDir));
+if (class_exists(\TAW\CLI\SkillsSyncCommand::class)) { // taw/core 1.89+
+    $app->add(new \TAW\CLI\SkillsSyncCommand($themeDir));
+}
 $app->run();
