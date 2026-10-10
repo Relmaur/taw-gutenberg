@@ -5,3 +5,5 @@
 .DS_Store
 .phpunit.result.cache
 .phpunit.cache/
+# Content snapshots, database dumps and remote.env (credentials): never committed.
+/.sync/
