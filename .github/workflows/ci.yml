@@ -1,46 +1,17 @@
 name: CI
 
+# The checks live in taw/core (shared workflow theme-ci.yml) and update with
+# it; this file only says when to run them.
+# By hand: see the "By hand" notes at the top of
+# vendor/taw/core/.github/workflows/theme-ci.yml.
+
 on:
   push:
     branches: [main]
   pull_request:
 
 jobs:
-  php:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php: ['8.2', '8.4']
-    steps:
-      - uses: actions/checkout@v4
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-          tools: composer:v2
-          coverage: none
-      - run: composer install --no-interaction --no-progress
-      - name: Static analysis (level max)
-        run: composer run phpstan
-      - name: Unit tests
-        run: composer run test
-      - name: Validate taw-schema/*.json (no WordPress)
-        run: php bin/taw schema:validate
-
-  js:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
-          tools: composer:v2
-          coverage: none
-      # vite.config.js imports taw/core's shared Vite plugins from vendor/.
-      - run: composer install --no-interaction --no-progress --no-dev
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: npm
-      - run: npm ci --no-audit --no-fund
-      - name: Lint, format, typecheck, Vitest, production build
-        run: npm run check
+  ci:
+    uses: Relmaur/taw-core/.github/workflows/theme-ci.yml@v1
+    with:
+      php-versions: '["8.2", "8.4"]'

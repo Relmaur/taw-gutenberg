@@ -46,6 +46,9 @@
             "npm install --no-audit --no-fund",
             "npm run build"
         ],
+        "post-update-cmd": [
+            "TAW\\CLI\\ComposerScripts::postUpdate"
+        ],
         "test": "phpunit",
         "phpstan": "phpstan analyse --memory-limit=-1",
         "schema:validate": "php bin/taw schema:validate"
